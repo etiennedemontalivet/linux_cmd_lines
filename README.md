@@ -30,3 +30,11 @@ smbclient '\\server\folder' --user username -c "prompt OFF;recurse ON;cd "path/t
 ``` bash
 sudo mount -t cifs -o username=username //server/folder /mnt/folder --verbose
 ```
+
+# Nvidia
+
+Restart nvidia module
+``` bash
+sudo rmmod nvidia_uvm
+sudo modprobe nvidia_uvm
+```
