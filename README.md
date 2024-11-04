@@ -38,3 +38,35 @@ Restart nvidia module
 sudo rmmod nvidia_uvm
 sudo modprobe nvidia_uvm
 ```
+
+# AnyDesk
+
+### Restart automatically
+
+``` bash
+vim /etc/systemd/system/anydesk-wyss-center-anydesk-client.service
+```
+
+Add the following lines in [Service] section:
+
+``` bash
+Restart=always
+RestartSec=5
+```
+
+### Restart after VPN change
+
+Create a new executable file:
+
+``` bash
+vim /etc/NetworkManager/dispatcher.d/10-vpnchange
+```
+
+And add the following:
+
+``` bash
+if [ "$2" = "vpn-up" ] || [ "$2" = "vpn-down" ]; then
+   sleep 5
+   sudo systemctl restart anydesk-wyss-center-anydesk-client.service
+fi
+```
